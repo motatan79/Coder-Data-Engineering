@@ -1,5 +1,14 @@
-# Entrega # 1. Obteniendo datos de API
+# Entrega # 1. Obteniendo datos de API.
+Comision: 60340
 
-## Vamos a obtener datos de la API de https://www.football-data.org/ de fútbol.
+Creador: Pirela, Moises.
+## Nombre del Proyecto
 
-## Obteniendo datos de la API
+## Versión
+1.0
+
+# DESCRIPCION DEL PROYECTO
+El proyecto consiste en obtener datos de la API gratuita  https://www.football-data.org/ de fútbol.
+
+## Extraer el contenido desde el siguiente repositorio en git con el siguiente comando
+git clone https://github.com/motatan79/TuPrimeraPaginaPirela.git
