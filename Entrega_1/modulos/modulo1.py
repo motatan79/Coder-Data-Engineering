@@ -47,9 +47,6 @@ class CreateRegister:
         self.__winner = winner
         self.__status = status
         
-    #def __str__(self) -> str:
-    #    return f'El cliente {self.__apellido}, {self.__nombre} de {self.__edad} años, se registró con el teléfono {self.__telefono} y correo {self.__correo}'
-    
     def add_contacto(self):
         self.register.append({'country':self.__country.capitalize(), 'competition': self.__competition.capitalize(), 
                               'season_start': self.__season_start, 'season_end': self.__season_end,                               

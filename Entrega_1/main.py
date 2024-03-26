@@ -51,7 +51,7 @@ df['fecha_ingesta'] = dt.datetime.now().date()
 # Conexion a Redshift
 conn = redshift_conn(db_name='data-engineer-database', user='m_pirela_coderhouse', port=5439)
 
-# Creación de tabla y carga de datos
+# Creación de tabla
 print('Creando tabla en Redshift')
 crear_tabla_redshift(conn)
 
