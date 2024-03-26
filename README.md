@@ -21,10 +21,13 @@ git clone https://github.com/motatan79/Coder-Data-Engineering.git
 - .\.venv\Scripts\activate (Windows Powershell)
 - source .venv/bin/activate (Linux o Mac)
 
-## Instalar pandas y requests
+## Instalar pandas, requests, psycopg2 y datetime en el entorno virtual
 pip install pandas
 pip install requests
 pip install psycopg2
+pip install datetime
+
+Para ejecutar el proyecto se debe ejecutar el archivo 'main.py'. 
 
 Los diferentes pasos seguidos para la ejecución del proyecto son los siguientes: 
 
