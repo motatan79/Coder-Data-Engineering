@@ -40,6 +40,8 @@ print('Instancias de clase CreateRegister creada con éxito')
     
 # Generación de DataFrame    
 df = pd.read_json('games.json')
+print(f'El Dataframe generado tiene un total de {df.shape[0]} filas y {df.shape[1]} columnas')
+print('----------------------------------------')
 print('Registros aleatorios tomados de DataFrame generado')
 print(df.sample(3))
 
