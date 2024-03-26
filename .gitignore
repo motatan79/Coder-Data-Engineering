@@ -1,3 +1,2 @@
-apikey.txt
-pwd_redshift.txt
+*.txt
 .venv
