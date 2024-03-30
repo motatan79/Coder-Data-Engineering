@@ -2,3 +2,4 @@
 __pycache__/
 apikey.txt
 pwd_redshift.txt
+.env

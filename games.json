@@ -12924,10 +12924,10 @@
         "home_team": "Newcastle United FC",
         "away_team_id": 563,
         "away_team": "West Ham United FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 4,
+        "away_goal": 3,
+        "winner": "HOME_TEAM",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -12939,10 +12939,10 @@
         "home_team": "AFC Bournemouth",
         "away_team_id": 62,
         "away_team": "Everton FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 2,
+        "away_goal": 1,
+        "winner": "HOME_TEAM",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -12954,10 +12954,10 @@
         "home_team": "Chelsea FC",
         "away_team_id": 328,
         "away_team": "Burnley FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 2,
+        "away_goal": 2,
+        "winner": "DRAW",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -12969,10 +12969,10 @@
         "home_team": "Nottingham Forest FC",
         "away_team_id": 354,
         "away_team": "Crystal Palace FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 1,
+        "away_goal": 1,
+        "winner": "DRAW",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -12984,10 +12984,10 @@
         "home_team": "Sheffield United FC",
         "away_team_id": 63,
         "away_team": "Fulham FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 3,
+        "away_goal": 3,
+        "winner": "DRAW",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -12999,10 +12999,10 @@
         "home_team": "Tottenham Hotspur FC",
         "away_team_id": 389,
         "away_team": "Luton Town FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 2,
+        "away_goal": 1,
+        "winner": "HOME_TEAM",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -13014,10 +13014,10 @@
         "home_team": "Aston Villa FC",
         "away_team_id": 76,
         "away_team": "Wolverhampton Wanderers FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 2,
+        "away_goal": 0,
+        "winner": "HOME_TEAM",
+        "status": "FINISHED"
     },
     {
         "country": "England",
@@ -13029,10 +13029,10 @@
         "home_team": "Brentford FC",
         "away_team_id": 66,
         "away_team": "Manchester United FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 0,
+        "away_goal": 0,
+        "winner": "DRAW",
+        "status": "PAUSED"
     },
     {
         "country": "England",

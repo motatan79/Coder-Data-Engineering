@@ -2,13 +2,15 @@ import requests
 import json
 import psycopg2
 from psycopg2.extras import execute_values
+import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
 
 def api_key() -> str:
     '''Obtención de apikey para la API de football-data.org'''
-    f = open(r"apikey.txt", "r")
-    api_key = f.read()
-    f.close()
-    return api_key
+    return os.getenv('API_KEY')
 
 def get_data(url:str, headers:dict) -> dict:
     '''Obtención de datos de la API de football-data.org'''
@@ -16,6 +18,7 @@ def get_data(url:str, headers:dict) -> dict:
     if response.status_code == 200:
         try:
             data = response.json()
+            print('Conexion exitosa a API de football-data.org')
             return data
         except json.JSONDecodeError as e:
             print(f'JSONDecodeError: {e}')
@@ -61,16 +64,14 @@ class CreateRegister:
             
             
 # Generación de conexión a RedShift
-def redshift_conn(db_name:str, user:str, port) -> None:
-    with open("pwd_redshift.txt",'r') as f:
-        pwd= f.read()
+def redshift_conn() -> None:
     try:
         conn = psycopg2.connect(
-            host='data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com',
-            dbname=db_name,
-            user=user,
-            password=pwd,
-            port=port
+        host=os.getenv('DB_HOST'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'), 
+        port=os.getenv('DB_PORT') 
         )
         print("Conectado a Redshift con éxito!")
         

@@ -26,6 +26,7 @@ pip install pandas
 pip install requests
 pip install psycopg2
 pip install datetime
+pip install python-dotenv
 
 Para ejecutar el proyecto se debe ejecutar el archivo 'main.py'. 
 

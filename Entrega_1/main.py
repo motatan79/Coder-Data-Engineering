@@ -1,4 +1,4 @@
-from modulos.modulo1 import *
+from modulos.modulo1 import * 
 import pandas as pd
 import datetime as dt
 
@@ -6,7 +6,6 @@ import datetime as dt
 url = 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom=2022-01-01&dateTo=2025-01-01'
 headers = { 'X-Auth-Token':  api_key() }
 matches = get_data(url, headers)
-print('Conexion exitosa a API de football-data.org')
 
 # Generación de archivo json
 with open(r'matches.json', 'w') as f:
@@ -49,7 +48,7 @@ print(df.sample(3))
 df['fecha_ingesta'] = dt.datetime.now().date()
 
 # Conexion a Redshift
-conn = redshift_conn(db_name='data-engineer-database', user='m_pirela_coderhouse', port=5439)
+conn = redshift_conn()
 
 # Creación de tabla
 print('Creando tabla en Redshift')
@@ -63,6 +62,7 @@ truncate_table_redshift(conn)
 # Inserción de datos en Redshift
 print('Insertando datos en Redshift')
 insertar_datos_redshift(conn, df)
+
 
 
 
