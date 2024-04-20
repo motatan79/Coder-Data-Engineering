@@ -86,7 +86,7 @@ def crear_tabla_redshift(conn):
     try:
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS games (
-                 country varchar(50)
+				country varchar(50)
                 ,competition varchar(50)
                 ,season_start date
                 ,season_end date
@@ -100,6 +100,7 @@ def crear_tabla_redshift(conn):
                 ,winner varchar(50)
                 ,status varchar(50)
                 ,fecha_ingesta timestamp default getdate()
+                ,primary key(match_day, home_team_id, away_team_id)
             );
         """)
         conn.commit()

@@ -2,8 +2,11 @@ from modulos.modulo1 import *
 import pandas as pd
 import datetime as dt
 
-# Obtención de datos de la API de football-data.org para partidos de la Liga Inglesa desde 2022-01-01 hasta 2025-01-01
-url = 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom=2022-01-01&dateTo=2025-01-01'
+
+
+# Obtención de datos de la API de football-data.org para partidos de la Liga Inglesa desde 2022-01-01 hasta fecha actual
+date_to = dt.date.today()
+url = f'https://api.football-data.org/v4/competitions/PL/matches?dateFrom=2021-08-01&dateTo={date_to}'
 headers = { 'X-Auth-Token':  api_key() }
 matches = get_data(url, headers)
 
