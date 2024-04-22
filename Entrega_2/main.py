@@ -1,14 +1,23 @@
 from modulos.modulo1 import * 
 import pandas as pd
 import datetime as dt
+import os
 
+# Conexion a Redshift para chequear última fecha de ingesta
+conn = redshift_conn()
 
+# Obtener última fecha de ingesta
+max = chequear_datos_redshift(conn)
 
 # Obtención de datos de la API de football-data.org para partidos de la Liga Inglesa desde 2022-01-01 hasta fecha actual
 date_to = dt.date.today()
-url = f'https://api.football-data.org/v4/competitions/PL/matches?dateFrom=2022-08-01&dateTo={date_to}'
+date_from = str(max[0].date())
+url = f'https://api.football-data.org/v4/competitions/PL/matches?dateFrom={date_from}&dateTo={date_to}'
 headers = { 'X-Auth-Token':  api_key() }
 matches = get_data(url, headers)
+
+# Eliminar todos los registros del json para que no se repitan los partidos
+eliminar_registros_json(r'games.json')
 
 # Generación de archivo json
 with open(r'matches.json', 'w') as f:
@@ -41,32 +50,35 @@ for i in range(len(matches['matches'])):
 print('Instancias de clase CreateRegister creada con éxito')    
     
 # Generación de DataFrame    
-df = pd.read_json('games.json')
-print(f'El Dataframe generado tiene un total de {df.shape[0]} filas y {df.shape[1]} columnas')
-print('----------------------------------------')
-print('Registros aleatorios tomados de DataFrame generado')
-print(df.sample(3))
+if os.stat('games.json').st_size != 2:
+    df = pd.read_json('games.json')
+    print(f'El Dataframe generado tiene un total de {df.shape[0]} filas y {df.shape[1]} columnas')
+    print('----------------------------------------')
+    print('Registros aleatorios tomados de DataFrame generado')
+    print(df.sample(3))
+    # Adición de columna temporal
+    df['fecha_ingesta'] = dt.datetime.now().date()
+    print(df)
+    
+    # Conexion a Redshift
+    conn = redshift_conn()
 
-# Adición de columna temporal
-df['fecha_ingesta'] = dt.datetime.now().date()
+    # Creación de tabla
+    print('Creando tabla en Redshift')
+    crear_tabla_redshift(conn)
 
-# Conexion a Redshift
-conn = redshift_conn()
+    # Limpieza de tabla en Redshift
+    print('Eliminar registros de tabla')
+    delete_register(conn)
 
-# Creación de tabla
-print('Creando tabla en Redshift')
-crear_tabla_redshift(conn)
-
-# Limpieza de tabla en Redshift
-print('Vaciado de tabla en Redshift')
-truncate_table_redshift(conn)
-
-
-# Inserción de datos en Redshift
-print('Insertando datos en Redshift')
-insertar_datos_redshift(conn, df)
-
-
+    # Inserción de datos en Redshift
+    print('Insertando datos en Redshift')
+    insertar_datos_redshift(conn, df)
+    print("Última actualización de datos: ", max[0])
+else:
+    print("Última actualización de datos: ", dt.datetime.now().date())
+    print('No hay registros que insertar para el día de hoy')
+    
 
 
 

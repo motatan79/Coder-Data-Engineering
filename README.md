@@ -32,12 +32,16 @@ Para ejecutar el proyecto se debe ejecutar el archivo 'main.py'.
 
 Los diferentes pasos seguidos para la ejecución del proyecto son los siguientes: 
 
-1) Llamar a la API y obtención de los datos 
-Usando la url 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom=2022-01-01&dateTo=2025-01-01' y el token de acceso (API_KEY) proporcionado por los creadores de la API, se obtienen los datos de los partidos de la liga.
+1) Chequear fecha de la última carga de datos en la base de datos.
 
-2) Generación de un archivo JSON con los datos de la API. 
+2) Llamar a la API y obtención de los datos, desde la última fecha de carga hasta la fecha actual. 
+Usando la url 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom={maximaFecha_ingesta}&dateTo=2025-01-01' y el token de acceso (API_KEY) proporcionado por los creadores de la API, se obtienen los datos de los partidos de la liga.
 
-3) Generación de instancias relacionadas a los juegos en la Premier League, extrayendo del archivo JSON, los siguientes campos: 
+3) Eliminar todos los registros del archivo JSON games.json. 
+
+4) Generación de un archivo JSON con los datos de la API. 
+
+5) Generación de instancias relacionadas a los juegos en la Premier League, extrayendo del archivo JSON, los siguientes campos: 
     - country.
     - competition. 
     - season_start.
@@ -52,15 +56,16 @@ Usando la url 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom
     - winner.
     - status.
 
-4) Generación de DataFrame a partir del archivo JSON con las instancias.
+6) Generación de DataFrame a partir del archivo JSON con las instancias. 
+ En caso, de que no existan instancias relacionadas a los partidos, no se insertan datos en la base de datos y termina el proceso. 
 
-5) Adición de columna temporal con la fecha en la cual será realizada la carga a la base de datos. 
+7) Adición de columna temporal con la fecha en la cual será realizada la carga a la base de datos. 
 
-6) Creación de la conexión a la base de datos en Redshift.
+8) Creación de la conexión a la base de datos en Redshift.
 
-7) En caso de que no exista, creación de la tabla "games" y de existir eliminación de los datos presentes en ella.
+9) En caso de que no exista, creación de la tabla "games". 
 
-8) Por último, carga de los datos a la tabla "games" de la base de datos.
+10) Por último, carga de los datos a la tabla "games" de la base de datos.
 
 
 

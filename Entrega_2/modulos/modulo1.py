@@ -26,6 +26,27 @@ def get_data(url:str, headers:dict) -> dict:
         print(f'Request failed with status code: {response.status_code}')
     return None  
 
+
+def eliminar_registros_json(file_path):
+    '''Eliminación de registros del archivo games.json'''
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            
+            # Eliminar todos los registros de la estructura de datos cargada
+            data.clear()
+            
+        # Guardar la estructura de datos actualizada en el mismo archivo JSON
+        with open(file_path, 'w') as file:
+            json.dump(data, file, indent=4)  
+                        
+        print("Registros eliminados con éxito.")
+        
+    except FileNotFoundError:
+        print(f"No se pudo encontrar el archivo '{file_path}'.")
+    except json.JSONDecodeError:
+        print(f"Error al decodificar el archivo JSON '{file_path}'.")
+
 class CreateRegister:
     """ 
     Generación de base de registros (lista de diccionarios) en un archivo json, con datos de juegos de la Liga Inglesa Temporada
@@ -109,16 +130,16 @@ def crear_tabla_redshift(conn):
         print("No es posible crear la tabla en Redshift")
         print(e)
         
-def truncate_table_redshift(conn):
+def delete_register(conn):
     cursor = conn.cursor()
     try:
         cursor.execute("""
-            TRUNCATE TABLE games;
+            DELETE FROM games WHERE fecha_ingesta::date = match_day::date;
         """)
         conn.commit()
-        print("Tabla vaciada con éxito en Redshift!")
+        print("Registros eliminados con éxito en la tabla!")
     except Exception as e:
-        print("No es posible truncar la tabla en Redshift")
+        print("No es posible eliminar los registros en la tabla")
         print(e)
         
 # Inserción de datos en Redshift
@@ -133,6 +154,17 @@ def insertar_datos_redshift(conn, df):
     finally:
         cur.close()
         conn.close()
-            
-        
-    
+
+
+def chequear_datos_redshift(conn):
+    try:
+        with conn.cursor() as cur:
+            cur.execute('SELECT max(fecha_ingesta) FROM games') 
+            max = cur.fetchall()[0]
+    except Exception as e:
+        print("No es posible chequear datos en Redshift")
+        print(e)
+    finally:
+        cur.close()
+        conn.close()
+    return  max
