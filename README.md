@@ -63,7 +63,7 @@ Usando la url 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom
 
 8) Creación de la conexión a la base de datos en Redshift.
 
-9) En caso de que no exista, creación de la tabla "games". 
+9) En caso de que no exista, creación de la tabla "games" con una clave primaria compuesta por (match_day, home_team_id, away_team_id).
 
 10) Por último, carga de los datos a la tabla "games" de la base de datos.
 
