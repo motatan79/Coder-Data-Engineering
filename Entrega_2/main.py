@@ -55,7 +55,10 @@ if os.stat('games.json').st_size != 2:
     print(f'El Dataframe generado tiene un total de {df.shape[0]} filas y {df.shape[1]} columnas')
     print('----------------------------------------')
     print('Registros aleatorios tomados de DataFrame generado')
-    print(df.sample(3))
+    if df.shape[0] < 3:
+        print(df)
+    else:
+        print(df.sample(3))
     # Adición de columna temporal
     df['fecha_ingesta'] = dt.datetime.now().date()
     print(df)
@@ -74,9 +77,9 @@ if os.stat('games.json').st_size != 2:
     # Inserción de datos en Redshift
     print('Insertando datos en Redshift')
     insertar_datos_redshift(conn, df)
-    print("Última actualización de datos: ", max[0])
-else:
     print("Última actualización de datos: ", dt.datetime.now().date())
+else:
+    print("Última actualización de datos: ", max[0])
     print('No hay registros que insertar para el día de hoy')
     
 

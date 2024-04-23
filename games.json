@@ -1,1 +1,17 @@
-[]
+[
+    {
+        "country": "England",
+        "competition": "Premier league",
+        "season_start": "2023-08-11",
+        "season_end": "2024-05-19",
+        "match_day": "2024-04-23T19:00:00Z",
+        "home_team_id": 57,
+        "home_team": "Arsenal FC",
+        "away_team_id": 61,
+        "away_team": "Chelsea FC",
+        "home_goal": null,
+        "away_goal": null,
+        "winner": null,
+        "status": "TIMED"
+    }
+]

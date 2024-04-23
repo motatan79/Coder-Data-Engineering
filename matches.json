@@ -9,8 +9,78 @@
     "filters": {
         "season": "2023"
     },
-    "matches": [],
+    "matches": [
+        {
+            "area": {
+                "code": "ENG",
+                "flag": "https://crests.football-data.org/770.svg",
+                "id": 2072,
+                "name": "England"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/61.png",
+                "id": 61,
+                "name": "Chelsea FC",
+                "shortName": "Chelsea",
+                "tla": "CHE"
+            },
+            "competition": {
+                "code": "PL",
+                "emblem": "https://crests.football-data.org/PL.png",
+                "id": 2021,
+                "name": "Premier League",
+                "type": "LEAGUE"
+            },
+            "group": null,
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/57.png",
+                "id": 57,
+                "name": "Arsenal FC",
+                "shortName": "Arsenal",
+                "tla": "ARS"
+            },
+            "id": 436223,
+            "lastUpdated": "2024-04-23T20:02:48Z",
+            "matchday": 29,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [
+                {
+                    "id": 11430,
+                    "name": "Simon Hooper",
+                    "nationality": "England",
+                    "type": "REFEREE"
+                }
+            ],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": null,
+                    "home": null
+                },
+                "halfTime": {
+                    "away": null,
+                    "home": null
+                },
+                "winner": null
+            },
+            "season": {
+                "currentMatchday": 34,
+                "endDate": "2024-05-19",
+                "id": 1564,
+                "startDate": "2023-08-11",
+                "winner": null
+            },
+            "stage": "REGULAR_SEASON",
+            "status": "TIMED",
+            "utcDate": "2024-04-23T19:00:00Z"
+        }
+    ],
     "resultSet": {
-        "count": 0
+        "count": 1,
+        "first": "2024-04-23",
+        "last": "2024-04-23",
+        "played": 0
     }
 }
