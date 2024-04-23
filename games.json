@@ -9,9 +9,9 @@
         "home_team": "Arsenal FC",
         "away_team_id": 61,
         "away_team": "Chelsea FC",
-        "home_goal": null,
-        "away_goal": null,
-        "winner": null,
-        "status": "TIMED"
+        "home_goal": 1,
+        "away_goal": 0,
+        "winner": "HOME_TEAM",
+        "status": "IN_PLAY"
     }
 ]

@@ -40,7 +40,7 @@
                 "tla": "ARS"
             },
             "id": 436223,
-            "lastUpdated": "2024-04-23T20:02:48Z",
+            "lastUpdated": "2024-04-23T21:46:53Z",
             "matchday": 29,
             "odds": {
                 "msg": "Activate Odds-Package in User-Panel to retrieve odds."
@@ -56,14 +56,14 @@
             "score": {
                 "duration": "REGULAR",
                 "fullTime": {
-                    "away": null,
-                    "home": null
+                    "away": 0,
+                    "home": 1
                 },
                 "halfTime": {
                     "away": null,
                     "home": null
                 },
-                "winner": null
+                "winner": "HOME_TEAM"
             },
             "season": {
                 "currentMatchday": 34,
@@ -73,7 +73,7 @@
                 "winner": null
             },
             "stage": "REGULAR_SEASON",
-            "status": "TIMED",
+            "status": "IN_PLAY",
             "utcDate": "2024-04-23T19:00:00Z"
         }
     ],

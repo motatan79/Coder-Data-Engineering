@@ -40,7 +40,7 @@ def eliminar_registros_json(file_path):
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=4)  
                         
-        print("Registros eliminados con éxito.")
+        print("Registros eliminados con éxito del archivo JSON.")
         
     except FileNotFoundError:
         print(f"No se pudo encontrar el archivo '{file_path}'.")
