@@ -13,6 +13,8 @@ El proyecto consiste en obtener datos de la API gratuita  https://www.football-d
 ## Extraer el contenido desde el siguiente repositorio en git con el siguiente comando
 git clone https://github.com/motatan79/Coder-Data-Engineering.git
 
+Para ejecutar lo asociado con esta entrega se debe referir a la rama "entrega_2".
+
 ## Para ingresar al proyecto se debe crear un ambiente virtual en la terminal
 - python -m venv .venv (Windows)
 - python3 -m venv .venv (Linux o Mac)
