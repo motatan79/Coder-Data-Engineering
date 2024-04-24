@@ -61,7 +61,7 @@ if os.stat('games.json').st_size != 2:
         print(df.sample(3))
     # Adición de columna temporal
     df['fecha_ingesta'] = dt.datetime.now().date()
-    print(df)
+    
     
     # Conexion a Redshift
     conn = redshift_conn()
