@@ -40,7 +40,7 @@
                 "tla": "WOL"
             },
             "id": 436232,
-            "lastUpdated": "2024-04-24T22:45:25Z",
+            "lastUpdated": "2024-04-25T15:21:55Z",
             "matchday": 29,
             "odds": {
                 "msg": "Activate Odds-Package in User-Panel to retrieve odds."
@@ -106,7 +106,7 @@
                 "tla": "CRY"
             },
             "id": 436226,
-            "lastUpdated": "2024-04-24T22:47:35Z",
+            "lastUpdated": "2024-04-25T00:21:33Z",
             "matchday": 29,
             "odds": {
                 "msg": "Activate Odds-Package in User-Panel to retrieve odds."
@@ -139,7 +139,7 @@
                 "winner": null
             },
             "stage": "REGULAR_SEASON",
-            "status": "IN_PLAY",
+            "status": "FINISHED",
             "utcDate": "2024-04-24T19:00:00Z"
         },
         {
@@ -172,7 +172,7 @@
                 "tla": "EVE"
             },
             "id": 436227,
-            "lastUpdated": "2024-04-24T22:47:35Z",
+            "lastUpdated": "2024-04-25T15:21:55Z",
             "matchday": 29,
             "odds": {
                 "msg": "Activate Odds-Package in User-Panel to retrieve odds."
@@ -205,7 +205,7 @@
                 "winner": null
             },
             "stage": "REGULAR_SEASON",
-            "status": "IN_PLAY",
+            "status": "FINISHED",
             "utcDate": "2024-04-24T19:00:00Z"
         },
         {
@@ -238,7 +238,7 @@
                 "tla": "MUN"
             },
             "id": 436230,
-            "lastUpdated": "2024-04-24T22:47:35Z",
+            "lastUpdated": "2024-04-25T00:21:33Z",
             "matchday": 29,
             "odds": {
                 "msg": "Activate Odds-Package in User-Panel to retrieve odds."
@@ -271,14 +271,73 @@
                 "winner": null
             },
             "stage": "REGULAR_SEASON",
-            "status": "IN_PLAY",
+            "status": "FINISHED",
             "utcDate": "2024-04-24T19:00:00Z"
+        },
+        {
+            "area": {
+                "code": "ENG",
+                "flag": "https://crests.football-data.org/770.svg",
+                "id": 2072,
+                "name": "England"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/65.png",
+                "id": 65,
+                "name": "Manchester City FC",
+                "shortName": "Man City",
+                "tla": "MCI"
+            },
+            "competition": {
+                "code": "PL",
+                "emblem": "https://crests.football-data.org/PL.png",
+                "id": 2021,
+                "name": "Premier League",
+                "type": "LEAGUE"
+            },
+            "group": null,
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/397.svg",
+                "id": 397,
+                "name": "Brighton & Hove Albion FC",
+                "shortName": "Brighton Hove",
+                "tla": "BHA"
+            },
+            "id": 436224,
+            "lastUpdated": "2024-04-25T15:21:55Z",
+            "matchday": 29,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": null,
+                    "home": null
+                },
+                "halfTime": {
+                    "away": null,
+                    "home": null
+                },
+                "winner": null
+            },
+            "season": {
+                "currentMatchday": 34,
+                "endDate": "2024-05-19",
+                "id": 1564,
+                "startDate": "2023-08-11",
+                "winner": null
+            },
+            "stage": "REGULAR_SEASON",
+            "status": "TIMED",
+            "utcDate": "2024-04-25T19:00:00Z"
         }
     ],
     "resultSet": {
-        "count": 4,
+        "count": 5,
         "first": "2024-04-24",
-        "last": "2024-04-24",
-        "played": 1
+        "last": "2024-04-25",
+        "played": 4
     }
 }
