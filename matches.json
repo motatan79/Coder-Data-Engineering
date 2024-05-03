@@ -40,8 +40,74 @@
                 "tla": "CHE"
             },
             "id": 436197,
-            "lastUpdated": "2024-05-02T15:21:37Z",
+            "lastUpdated": "2024-05-03T15:21:34Z",
             "matchday": 26,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [
+                {
+                    "id": 11446,
+                    "name": "Robert Jones",
+                    "nationality": "England",
+                    "type": "REFEREE"
+                }
+            ],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 0,
+                    "home": 2
+                },
+                "halfTime": {
+                    "away": 0,
+                    "home": 1
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 36,
+                "endDate": "2024-05-19",
+                "id": 1564,
+                "startDate": "2023-08-11",
+                "winner": null
+            },
+            "stage": "REGULAR_SEASON",
+            "status": "FINISHED",
+            "utcDate": "2024-05-02T18:30:00Z"
+        },
+        {
+            "area": {
+                "code": "ENG",
+                "flag": "https://crests.football-data.org/770.svg",
+                "id": 2072,
+                "name": "England"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/62.png",
+                "id": 62,
+                "name": "Everton FC",
+                "shortName": "Everton",
+                "tla": "EVE"
+            },
+            "competition": {
+                "code": "PL",
+                "emblem": "https://crests.football-data.org/PL.png",
+                "id": 2021,
+                "name": "Premier League",
+                "type": "LEAGUE"
+            },
+            "group": null,
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/389.png",
+                "id": 389,
+                "name": "Luton Town FC",
+                "shortName": "Luton Town",
+                "tla": "LUT"
+            },
+            "id": 436300,
+            "lastUpdated": "2024-04-09T15:21:31Z",
+            "matchday": 36,
             "odds": {
                 "msg": "Activate Odds-Package in User-Panel to retrieve odds."
             },
@@ -59,7 +125,7 @@
                 "winner": null
             },
             "season": {
-                "currentMatchday": 35,
+                "currentMatchday": 36,
                 "endDate": "2024-05-19",
                 "id": 1564,
                 "startDate": "2023-08-11",
@@ -67,13 +133,13 @@
             },
             "stage": "REGULAR_SEASON",
             "status": "TIMED",
-            "utcDate": "2024-05-02T18:30:00Z"
+            "utcDate": "2024-05-03T19:00:00Z"
         }
     ],
     "resultSet": {
-        "count": 1,
+        "count": 2,
         "first": "2024-05-02",
-        "last": "2024-05-02",
-        "played": 0
+        "last": "2024-05-03",
+        "played": 1
     }
 }
