@@ -4,13 +4,12 @@ import json
 import requests
 import psycopg2
 from modulos.modulo1 import * 
+from dotenv import load_dotenv
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonOperator
 import pandas as pd
 import os
 
-# Conexion a Redshift 
-conn = redshift_conn()
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
 dag_path = os.getcwd()
@@ -49,29 +48,22 @@ task_2 = PythonOperator(
     dag=premier_dag,
 )
 
-#3. Conexión a Redshift
-task_1 = PythonOperator(
-    task_id='conexión a Redshift',
-    python_callable=redshift_conn,
-    op_args=["{{ ds }} {{ execution_date.hour }}"],
-    dag=premier_dag,
-)
+# # 3. Conexion a Redshift
+# task_3 = PythonOperator(
+#     task_id='conexion_redshift',
+#     python_callable=redshift_conn,
+#     op_args=["{{ ds }} {{ execution_date.hour }}"],
+#     dag=premier_dag,
+# )
 
-# 3. Data Loading 
-# 3.1 Conexion a base de datos
-task_31= PythonOperator(
-    task_id="conexion_BD",
-    python_callable=redshift_conn,
-    op_args=["{{ ds }} {{ execution_date.hour }}"],
-    dag=premier_dag
-)
 
-# 3.2 Envio final
-task_32 = PythonOperator(
-    task_id='load_data',
-    python_callable=loading_data,
-    op_args=["{{ ds }} {{ execution_date.hour }}"],
-    dag=premier_dag,
-)
+# # 3.2 Envio final
+# task_4 = PythonOperator(
+#     task_id='load_data',
+#     python_callable=loading_data,
+#     op_args=["{{ ds }} {{ execution_date.hour }}"],
+#     dag=premier_dag,
+# )
 
-task_1 >> task_2 >> task_31 >> task_32
+task_1 >> task_2 
+# >> task_3 >> task_4

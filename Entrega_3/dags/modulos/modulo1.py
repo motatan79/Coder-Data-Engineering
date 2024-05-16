@@ -3,7 +3,6 @@ import json
 import psycopg2
 from psycopg2.extras import execute_values
 import os
-from dotenv import load_dotenv
 from datetime import timedelta,datetime
 import datetime as dt
 import pandas as pd
@@ -65,7 +64,7 @@ def transform_data(exec_date):
         df.to_csv(dag_path+'/processed_data/'+"data_"+str(date_to.year)+'-'+str(date_to.month)+'-'+str(date_to.day)+".csv", index=False, mode='w')
 
 # Generación de conexión a RedShift
-def redshift_conn() -> None:
+def redshift_conn():
     try:
         conn = psycopg2.connect(
         host=os.getenv('DB_HOST'),
