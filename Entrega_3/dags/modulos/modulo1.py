@@ -9,13 +9,14 @@ import pandas as pd
 
 dag_path = os.getcwd()
 
-def extract_data(exec_date:str) -> None:
+def extract_data(exec_date) -> None:
     '''Obtención de datos de la API de football-data.org'''
-    date_to = datetime.strptime(exec_date, '%Y-%m-%d')
-    url = f'https://api.football-data.org/v4/competitions/PL/matches'
-    headers = { 'X-Auth-Token':   os.getenv('API_KEY')}
-    print(headers)
+    print(f"Adquiriendo data para la fecha: {exec_date}")
     try:
+        date_to = datetime.strptime(exec_date, '%Y-%m-%d')
+        url = f'https://api.football-data.org/v4/competitions/PL/matches'
+        headers = { 'X-Auth-Token':   os.getenv('API_KEY')}
+        print(headers)
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             print('Conexion exitosa a API de football-data.org')
