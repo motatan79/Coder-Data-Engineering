@@ -6,8 +6,13 @@ import os
 from datetime import timedelta,datetime
 import datetime as dt
 import pandas as pd
+from dotenv import load_dotenv
+
 
 dag_path = os.getcwd()
+
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
 
 def extract_data(exec_date) -> None:
     '''Obtención de datos de la API de football-data.org'''
@@ -15,7 +20,7 @@ def extract_data(exec_date) -> None:
     try:
         date_to = exec_date[:10]
         url = f'https://api.football-data.org/v4/competitions/PL/matches'
-        headers = { 'X-Auth-Token':   os.getenv('API_KEY')}
+        headers = { 'X-Auth-Token': os.getenv('API_KEY')}
         print(headers)
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
@@ -32,7 +37,7 @@ def extract_data(exec_date) -> None:
 def transform_data(exec_date): 
     '''Generación de DataFrame con datos transformados'''      
     print(f"Transformando la data para la fecha: {exec_date}") 
-    date_to = datetime.strptime(exec_date, '%Y-%m-%d %H')
+    date_to = exec_date[:10]
     with open(dag_path+'/raw_data/'+"data_"+str(date_to.year)+'-'+str(date_to.month)+'-'+str(date_to.day)+".json", "r") as f:
         matches=json.load(f)
     games = []
@@ -110,8 +115,8 @@ def crear_tabla_redshift(conn):
         
 # Inserción de datos en Redshift
 
-def loading_data(conn):
-    date_to = dt.date.today()
+def loading_data(conn, exec_date):
+    date_to = exec_date[:10]
     try:
         registros = pd.read_csv(dag_path+'/processed_data/'+"data_"+str(date_to.year)+'-'+str(date_to.month)+'-'+str(date_to.day)+".csv")
         print(registros)
