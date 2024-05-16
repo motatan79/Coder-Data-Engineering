@@ -1,4 +1,4 @@
-# Entrega # 2. Carga de datos de API en Amazon Redshift.
+# Entrega # 3. Carga de datos de API en Amazon Redshift.
 Comision: 60340
 
 Creador: Pirela, Moises.

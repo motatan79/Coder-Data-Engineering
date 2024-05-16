@@ -7,14 +7,12 @@ import os
 conn = redshift_conn()
 
 # Obtener última fecha de ingesta
-max = chequear_datos_redshift(conn)
+max_date = chequear_datos_redshift(conn)
 
 # Obtención de datos de la API de football-data.org para partidos de la Liga Inglesa desde 2022-01-01 hasta fecha actual
-date_to = dt.date.today()
-date_from = str(max[0].date())
-url = f'https://api.football-data.org/v4/competitions/PL/matches?dateFrom={date_from}&dateTo={date_to}'
+
 headers = { 'X-Auth-Token':  api_key() }
-matches = get_data(url, headers)
+matches = get_data(get_url(max_date), headers)
 
 # Eliminar todos los registros del json para que no se repitan los partidos
 eliminar_registros_json(r'games.json')
