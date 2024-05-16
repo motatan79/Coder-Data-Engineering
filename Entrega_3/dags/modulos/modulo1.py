@@ -11,9 +11,9 @@ dag_path = os.getcwd()
 
 def extract_data(exec_date) -> None:
     '''Obtención de datos de la API de football-data.org'''
-    print(f"Adquiriendo data para la fecha: {exec_date}")
+    print(f"Adquiriendo data para la fecha: {exec_date[:10]}")
     try:
-        date_to = datetime.strptime(exec_date, '%Y-%m-%d')
+        date_to = exec_date[:10]
         url = f'https://api.football-data.org/v4/competitions/PL/matches'
         headers = { 'X-Auth-Token':   os.getenv('API_KEY')}
         print(headers)
