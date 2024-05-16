@@ -7,22 +7,16 @@ from datetime import timedelta,datetime
 import datetime as dt
 import pandas as pd
 
+dag_path = os.getcwd()
 
 def extract_data(exec_date:str) -> None:
     '''Obtención de datos de la API de football-data.org'''
+    date_to = datetime.strptime(exec_date, '%Y-%m-%d')
     url = f'https://api.football-data.org/v4/competitions/PL/matches'
-    headers = { 'X-Auth-Token':  'f66a9085f1a442098bf5c4ae73584bc2'}
+    headers = { 'X-Auth-Token':   os.getenv('API_KEY')}
     print(headers)
-    try: 
-        date_to = datetime.strptime(exec_date, '%Y-%m-%d')
-        url = f'https://api.football-data.org/v4/competitions/PL/matches'
-        headers = { 'X-Auth-Token':  'f66a9085f1a442098bf5c4ae73584bc2'}
-        print(headers)
-    except Exception as e:
-        print('Error al obtener la URL:', e)   
-        return None
-    response = requests.get(url, headers=headers)
     try:
+        response = requests.get(url, headers=headers)
         if response.status_code == 200:
             print('Conexion exitosa a API de football-data.org')
             try:
