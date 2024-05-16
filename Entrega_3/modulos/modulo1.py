@@ -8,8 +8,6 @@ from datetime import timedelta,datetime
 import datetime as dt
 import pandas as pd
 
-# Cargar variables de entorno desde el archivo .env
-load_dotenv()
 
 def extract_data(exec_date:str) -> None:
     '''Obtención de datos de la API de football-data.org'''
@@ -40,7 +38,7 @@ def transform_data(exec_date):
         matches=json.load(f)
     games = []
     for i in range(len(matches['matches'])): 
-        if matches['matches'][i]['utcDate'][:10] == '2024-05-15' and matches['matches'][i]['status'] == 'FINISHED':  
+        if matches['matches'][i]['utcDate'][:10] == datetime.strptime(exec_date, '%Y-%m-%d') and matches['matches'][i]['status'] == 'FINISHED':  
             country = matches['matches'][i]['area']['name']
             season_start = matches['matches'][i]['season']['startDate']
             season_end = matches['matches'][i]['season']['endDate']
@@ -65,8 +63,6 @@ def transform_data(exec_date):
         df['fecha_ingesta'] = datetime.strptime(exec_date, '%Y-%m-%d')
         print(df)  
         df.to_csv(dag_path+'/processed_data/'+"data_"+str(date_to.year)+'-'+str(date_to.month)+'-'+str(date_to.day)+".csv", index=False, mode='w')
-
-
 
 # Generación de conexión a RedShift
 def redshift_conn() -> None:
