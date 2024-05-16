@@ -48,22 +48,21 @@ task_2 = PythonOperator(
     dag=premier_dag,
 )
 
-# # 3. Conexion a Redshift
-# task_3 = PythonOperator(
-#     task_id='conexion_redshift',
-#     python_callable=redshift_conn,
-#     op_args=["{{ ds }} {{ execution_date.hour }}"],
-#     dag=premier_dag,
-# )
+# 3. Conexion a Redshift
+task_3 = PythonOperator(
+    task_id='conexion_redshift',
+    python_callable=redshift_conn,
+    op_args=["{{ ds }} {{ execution_date.hour }}"],
+    dag=premier_dag,
+)
 
 
-# # 3.2 Envio final
-# task_4 = PythonOperator(
-#     task_id='load_data',
-#     python_callable=loading_data,
-#     op_args=["{{ ds }} {{ execution_date.hour }}"],
-#     dag=premier_dag,
-# )
+# 3.2 Envio final
+task_4 = PythonOperator(
+    task_id='load_data',
+    python_callable=loading_data,
+    op_args=["{{ ds }} {{ execution_date.hour }}"],
+    dag=premier_dag,
+)
 
-task_1 >> task_2 
-# >> task_3 >> task_4
+task_1 >> task_2 >> task_3 >> task_4
