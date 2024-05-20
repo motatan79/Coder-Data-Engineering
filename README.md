@@ -1,4 +1,4 @@
-# Entrega # 3. Carga de datos de API en Amazon Redshift.
+# Entrega # 3. Carga de datos de API en Amazon Redshift usando Apache Airflow.
 Comision: 60340
 
 Creador: Pirela, Moises.
@@ -8,42 +8,28 @@ Creador: Pirela, Moises.
 1.0
 
 # DESCRIPCION DEL PROYECTO
-El proyecto consiste en obtener datos de la API gratuita  https://www.football-data.org/ de fútbol.
+El proyecto consiste en obtener datos de la API gratuita  https://www.football-data.org/ de fútbol y cargar los datos en la base de datos de Amazon Redshift, usando un DAG con Airflow.
 
-## Extraer el contenido desde el siguiente repositorio en git con el siguiente comando
-git clone https://github.com/motatan79/Coder-Data-Engineering.git
+# Para ejecutar el proyecto seguir los siguientes pasos:
 
-Para ejecutar lo asociado con esta entrega se debe referir a la rama "entrega_2".
+1) Extraer el contenido desde el siguiente repositorio en git con el siguiente comando
+git clone https://github.com/motatan79/Coder-Data-Engineering/tree/entrega_3/Entrega_3
 
-## Para ingresar al proyecto se debe crear un ambiente virtual en la terminal
-- python -m venv .venv (Windows)
-- python3 -m venv .venv (Linux o Mac)
+2) Situado en la carpeta "Entrega_3":
+ - Reconstruir la imagen de docker con el siguiente comando:
+  docker build -t my_airflow_image .
+ - Ejecutar el contenedor con el siguiente comando:
+  docker run -p 8080:8080 -d my_airflow_image
 
-## Posteriormente activar el entorno virtual
-- .\.venv\Scripts\activate (Windows Powershell)
-- source .venv/bin/activate (Linux o Mac)
-
-## Instalar pandas, requests, psycopg2 y datetime en el entorno virtual
-pip install pandas
-pip install requests
-pip install psycopg2
-pip install datetime
-pip install python-dotenv
-
-Para ejecutar el proyecto se debe ejecutar el archivo 'main.py'. 
+3) Ir a la web de Airflow e ingresar con las credenciales en entrypoint.sh. 
 
 Los diferentes pasos seguidos para la ejecución del proyecto son los siguientes: 
 
-1) Chequear fecha de la última carga de datos en la base de datos.
-
-2) Llamar a la API y obtención de los datos, desde la última fecha de carga hasta la fecha actual. 
-Usando la url 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom={maximaFecha_ingesta}&dateTo=2025-01-01' y el token de acceso (API_KEY) proporcionado por los creadores de la API, se obtienen los datos de los partidos de la liga.
-
-3) Eliminar todos los registros del archivo JSON games.json. 
-
-4) Generación de un archivo JSON con los datos de la API. 
-
-5) Generación de instancias relacionadas a los juegos en la Premier League, extrayendo del archivo JSON, los siguientes campos: 
+En DAG en Airflow se ejecutarán en orden las tres tareas siguientes:
+    - Task 1: Obtener datos de la API. 
+        Desde la url 'https://api.football-data.org/v4/matches?date={date_to}', donde el date_to es la fecha de ejecución del DAG menos 1 día. Generar el archivo JSON a partir de los datos obtenidos de la API. 
+    - Task 2: Transformación de datos. 
+        Transformar el archivo JSON a un DataFrame, generando entradas relacionadas a los partidos extrayendo del archivo JSON, los siguientes campos: 
     - country.
     - competition. 
     - season_start.
@@ -56,19 +42,8 @@ Usando la url 'https://api.football-data.org/v4/competitions/PL/matches?dateFrom
     - home_goal.
     - away_goal.
     - winner.
-    - status.
-
-6) Generación de DataFrame a partir del archivo JSON con las instancias. 
- En caso, de que no existan instancias relacionadas a los partidos, no se insertan datos en la base de datos y termina el proceso. 
-
-7) Adición de columna temporal con la fecha en la cual será realizada la carga a la base de datos. 
-
-8) Creación de la conexión a la base de datos en Redshift.
-
-9) En caso de que no exista, creación de la tabla "games" con una clave primaria compuesta por (match_day, home_team_id, away_team_id).
-
-10) Por último, carga de los datos a la tabla "games" de la base de datos.
-
-
-
-
+    - status.             
+    Adición de columna temporal con la fecha en la cual será realizada la carga a la base de datos. 
+        Generar .csv a partir del DataFrame.
+    - Task 3: Carga de datos en la base de datos.
+        Cargar el archivo .csv a la base de datos, usando la configuración de Redshift.
