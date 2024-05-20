@@ -21,9 +21,6 @@ def extract_data(exec_date) -> None:
     date_to = execution_date_previous.strftime('%Y-%m-%d')
     print(date_to)
     try:
-        #date_to = (exec_date - timedelta(days=1))[:10]
-        #date_to = '2024-05-18'  #exec_date[:10]
-        # date_to = exec_date[:10]
         url = f'https://api.football-data.org/v4/matches?date={date_to}'
         headers = { 'X-Auth-Token': os.getenv('API_KEY')}
         response = requests.get(url, headers=headers)
@@ -45,8 +42,6 @@ def transform_data(exec_date):
     execution_date_previous = execution_date - timedelta(days=1)
     date_to = execution_date_previous.strftime('%Y-%m-%d')
     print(date_to)
-    #date_to = '2024-05-18'  #exec_date[:10]
-    # date_to = exec_date[:10]
     with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "r") as f:
         matches=json.load(f)
     games = []
@@ -79,13 +74,13 @@ def transform_data(exec_date):
         
 def loading_data(exec_date):
     '''Conexión a Redshift y Carga de datos en Redshift'''
-    #print(f"Insertando datos para la fecha: {(exec_date - timedelta(days=1))[:10]}") 
+    
     print(f"Insertando datos para la fecha: {exec_date}")
     execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
     execution_date_previous = execution_date - timedelta(days=1)
     date_to = execution_date_previous.strftime('%Y-%m-%d')
     print(date_to)
-    #date_to = '2024-05-18'  # exec_date[:10]
+    
     try:
         # Conexión a Redshift       
         conn = psycopg2.connect(
