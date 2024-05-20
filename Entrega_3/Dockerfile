@@ -16,9 +16,6 @@ COPY dags /opt/airflow/dags
 # Copia los plugins si tienes
 COPY plugins /opt/airflow/plugins
 
-# Copia las keys si tienes
-COPY keys /opt/airflow/keys
-
 # Copia el archivo .env al directorio de trabajo
 COPY .env /opt/airflow/
 

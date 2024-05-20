@@ -4,7 +4,6 @@ import psycopg2
 from psycopg2.extras import execute_values
 import os
 from datetime import timedelta,datetime
-import datetime as dt
 import pandas as pd
 from dotenv import load_dotenv
 
@@ -16,12 +15,16 @@ load_dotenv()
 
 def extract_data(exec_date) -> None:
     '''Obtención de datos de la API de football-data.org'''
-    print(f"Adquiriendo data para la fecha: {exec_date[:10]}")
-    print(f'este es el path: {dag_path}')
+    print(f"Adquiriendo data para la fecha: {exec_date}")
+    execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
+    execution_date_previous = execution_date - timedelta(days=1)
+    date_to = execution_date_previous.strftime('%Y-%m-%d')
+    print(date_to)
     try:
-        date_to = '2024-05-19'  #exec_date[:10]
+        #date_to = (exec_date - timedelta(days=1))[:10]
+        #date_to = '2024-05-18'  #exec_date[:10]
         # date_to = exec_date[:10]
-        url = f'https://api.football-data.org/v4/matches'
+        url = f'https://api.football-data.org/v4/matches?date={date_to}'
         headers = { 'X-Auth-Token': os.getenv('API_KEY')}
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
@@ -37,8 +40,12 @@ def extract_data(exec_date) -> None:
 
 def transform_data(exec_date): 
     '''Generación de DataFrame con datos transformados'''      
-    print(f"Transformando la data para la fecha: {exec_date}") 
-    date_to = '2024-05-19'  #exec_date[:10]
+    print(f"Transformando datos para la fecha: {exec_date}")
+    execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
+    execution_date_previous = execution_date - timedelta(days=1)
+    date_to = execution_date_previous.strftime('%Y-%m-%d')
+    print(date_to)
+    #date_to = '2024-05-18'  #exec_date[:10]
     # date_to = exec_date[:10]
     with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "r") as f:
         matches=json.load(f)
@@ -68,59 +75,18 @@ def transform_data(exec_date):
         print(df)  
         df.to_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv", index=False, mode='w')
     
-# Generación de conexión a RedShift
-# def loading_data(exec_date):
-#     print(f"Insertando datos para la fecha: {exec_date}") 
-#     date_to = '2024-05-15'  #exec_date[:10]
-    
-#     try:
-#         url="data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws"
-#         with open(dag_path+'/keys/'+"db.txt",'r') as f:
-#             data_base= f.read()
-#         with open(dag_path+'/keys/'+"user.txt",'r') as f:
-#             user= f.read()
-#         with open(dag_path+'/keys/'+"pwd.txt",'r') as f:
-#             pwd= f.read()
-#         # Conexión a Redshift       
-#         conn = psycopg2.connect(
-#         host=url,  #os.getenv('DB_HOST'),
-#         database=data_base,  #os.getenv('DB_NAME'),
-#         user=user,  #os.getenv('DB_USER'),
-#         password=pwd,  #os.getenv('DB_PASSWORD'), 
-#         port='5439'  #os.getenv('DB_PORT') 
-#         )
-#         print("Conectado a Redshift con éxito!")
-#     except Exception as e:
-#         print("No es posible conectar a Redshift")
-#         print(e)
-#     try:
-#         registros = pd.read_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv")
-#         print(registros)
-#         try:
-#             with conn.cursor() as cur:
-#                 execute_values(cur, 'INSERT INTO games VALUES %s', registros.values)
-#                 conn.commit()
-#         except Exception as e:
-#             print("No es posible insertar datos en Redshift")
-#             print(e)
-#         finally:
-#             cur.close()
-#             conn.close()
-#     except FileNotFoundError:
-#         print(f'No hay registros para este día: {date_to}')
-        
+     
         
 def loading_data(exec_date):
-    print(f"Insertando datos para la fecha: {exec_date}") 
-    date_to = '2024-05-19'  # exec_date[:10]
+    '''Conexión a Redshift y Carga de datos en Redshift'''
+    #print(f"Insertando datos para la fecha: {(exec_date - timedelta(days=1))[:10]}") 
+    print(f"Insertando datos para la fecha: {exec_date}")
+    execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
+    execution_date_previous = execution_date - timedelta(days=1)
+    date_to = execution_date_previous.strftime('%Y-%m-%d')
+    print(date_to)
+    #date_to = '2024-05-18'  # exec_date[:10]
     try:
-    #     url = "data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com"
-    #     with open(dag_path+'/keys/'+"db.txt", 'r') as f:
-    #         data_base = f.read().strip()
-    #     with open(dag_path+'/keys/'+"user.txt", 'r') as f:
-    #         user = f.read().strip()
-    #     with open(dag_path+'/keys/'+"pwd.txt", 'r') as f:
-    #         pwd = f.read().strip()
         # Conexión a Redshift       
         conn = psycopg2.connect(
             host= os.getenv('DB_HOST'),  #url,
@@ -134,7 +100,6 @@ def loading_data(exec_date):
         print("No es posible conectar a Redshift")
         print(e)
         return
-
     try:
         registros = pd.read_csv(dag_path + '/processed_data/' + "data_" + (date_to[:4]) + '-' + (date_to[5:7]) + '-' + (date_to[8:]) + ".csv")
         try:
@@ -152,68 +117,47 @@ def loading_data(exec_date):
         if 'conn' in locals():
             conn.close()
 
-# Creación de tabla en Redshift
-def crear_tabla_redshift(conn):
-    cursor = conn.cursor()
-    try:
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS games (
-				country varchar(50)
-                ,competition varchar(50)
-                ,season_start date
-                ,season_end date
-                ,match_day timestamp
-                ,home_team_id int
-                ,home_team varchar(50)
-                ,away_team_id int
-                ,away_team varchar(50)
-                ,home_goal int
-                ,away_goal int
-                ,winner varchar(50)
-                ,status varchar(50)
-                ,fecha_ingesta timestamp default getdate()
-                ,primary key(match_day, home_team_id, away_team_id, fecha_ingesta)
-            );
-        """)
-        conn.commit()
-        print("Tabla creada con éxito en Redshift!")
-    except Exception as e:
-        print("No es posible crear la tabla en Redshift")
-        print(e)
+# # Creación de tabla en Redshift
+# def crear_tabla_redshift(conn):
+#     cursor = conn.cursor()
+#     try:
+#         cursor.execute("""
+#             CREATE TABLE IF NOT EXISTS games (
+# 				country varchar(50)
+#                 ,competition varchar(50)
+#                 ,season_start date
+#                 ,season_end date
+#                 ,match_day timestamp
+#                 ,home_team_id int
+#                 ,home_team varchar(50)
+#                 ,away_team_id int
+#                 ,away_team varchar(50)
+#                 ,home_goal int
+#                 ,away_goal int
+#                 ,winner varchar(50)
+#                 ,status varchar(50)
+#                 ,fecha_ingesta timestamp default getdate()
+#                 ,primary key(match_day, home_team_id, away_team_id, fecha_ingesta)
+#             );
+#         """)
+#         conn.commit()
+#         print("Tabla creada con éxito en Redshift!")
+#     except Exception as e:
+#         print("No es posible crear la tabla en Redshift")
+#         print(e)
         
 # Inserción de datos en Redshift
 
-# def loading_data(conn, exec_date):
-#     print(f"Transformando la data para la fecha: {exec_date}") 
-#     date_to = '2024-05-15'  #exec_date[:10]
-#     # date_to = exec_date[:10]
+# def insertar_datos_redshift(conn, df):
 #     try:
-#         registros = pd.read_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv")
-#         print(registros)
-#         try:
-#             with conn.cursor() as cur:
-#                 execute_values(cur, 'INSERT INTO games VALUES %s', registros.values)
-#                 conn.commit()
-#         except Exception as e:
-#             print("No es posible insertar datos en Redshift")
-#             print(e)
-#         finally:
-#             cur.close()
-#             conn.close()
-#     except FileNotFoundError:
-#         print(f'No hay registros para este día: {date_to}')
-
-
-def insertar_datos_redshift(conn, df):
-    try:
-        with conn.cursor() as cur:
-            execute_values(cur, 'INSERT INTO games VALUES %s', df.values)
-            conn.commit()
-    except Exception as e:
-        print("No es posible insertar datos en Redshift")
-        print(e)
-    finally:
-        cur.close()
-        conn.close()
+#         with conn.cursor() as cur:
+#             execute_values(cur, 'INSERT INTO games VALUES %s', df.values)
+#             conn.commit()
+#     except Exception as e:
+#         print("No es posible insertar datos en Redshift")
+#         print(e)
+#     finally:
+#         cur.close()
+#         conn.close()
 
 

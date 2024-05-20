@@ -23,12 +23,12 @@ default_args = {
 }
 
 premier_dag = DAG(
-    dag_id='Premier_ETL',
+    dag_id='Futbol_Games_ETL',
     default_args=default_args,
-    description='Agregar datos de partidos de la liga inglesa diariamente',
+    description='Agregar datos de partidos de las diferentes ligas de fútbol diariamente',
     schedule_interval="@daily",
     catchup=False,
-    doc_md="""ETL para la base de datos de partidos de la liga inglesa"""
+    doc_md="""ETL para la base de datos de partidos de las ligas de fútbol mundial"""
 )
 
 # Tasks
@@ -48,14 +48,7 @@ task_2 = PythonOperator(
     dag=premier_dag,
 )
 
-# # 3. Conexion a Redshift
-# task_3 = PythonOperator(
-#     task_id='conexion_redshift',
-#     python_callable=redshift_conn,
-#     dag=premier_dag,
-# )
-
-# 3.2 Envio final
+# # 3. Data Loading 
 task_3 = PythonOperator(
     task_id='load_data',
     python_callable=loading_data,
