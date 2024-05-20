@@ -137,7 +137,6 @@ def loading_data(exec_date):
 
     try:
         registros = pd.read_csv(dag_path + '/processed_data/' + "data_" + (date_to[:4]) + '-' + (date_to[5:7]) + '-' + (date_to[8:]) + ".csv")
-        print(registros.dtypes)
         try:
             with conn.cursor() as cur:
                 execute_values(cur, 'INSERT INTO games VALUES %s', registros.values)
