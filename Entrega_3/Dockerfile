@@ -16,11 +16,19 @@ COPY dags /opt/airflow/dags
 # Copia los plugins si tienes
 COPY plugins /opt/airflow/plugins
 
+# Copia las keys si tienes
+COPY keys /opt/airflow/keys
+
+# Copia el archivo .env al directorio de trabajo
+COPY .env /opt/airflow/
+
 # Copia los scripts de entrada, configuraciones o archivos necesarios
 COPY entrypoint.sh /entrypoint.sh
 
 # Cambia los permisos del script de entrada con usuario root
 USER root
+RUN mkdir -p /opt/airflow/raw_data && chmod -R 777 /opt/airflow/raw_data
+RUN mkdir -p /opt/airflow/processed_data && chmod -R 777 /opt/airflow/processed_data
 RUN chmod +x /entrypoint.sh
 USER airflow
 
@@ -32,5 +40,8 @@ EXPOSE 8080 8793
 
 # Inicia el scheduler y el webserver
 CMD ["webserver"]
+
+
+
 
 

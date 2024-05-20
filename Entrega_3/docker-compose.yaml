@@ -62,7 +62,8 @@ x-airflow-common:
     - ./plugins:/opt/airflow/plugins
     - ./raw_data:/opt/airflow/raw_data
     - ./processed_data:/opt/airflow/processed_data
-  #env_file: .env
+    - ./keys:/opt/airflow/keys
+    - ./.env_file:/opt/airflow/.env
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   depends_on:
     postgres:

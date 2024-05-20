@@ -7,11 +7,11 @@ airflow db init
 airflow users create \
     --username admin \
     --password admin \
-    --firstname Moises \
-    --lastname Pirela \
+    --firstname Nombre \
+    --lastname Apellido \
     --role Admin \
-    --email m.pirela@gmail.com
+    --email admin@example.com
 
 # Iniciar el scheduler y el webserver de Airflow
 airflow scheduler &
-airflow webserver
+exec airflow webserver
