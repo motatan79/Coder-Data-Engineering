@@ -28,6 +28,8 @@ def extract_data(exec_date) -> None:
             print('Conexion exitosa a API de football-data.org')
             try:
                 data = response.json()
+                # También puede ser de esta manera
+                # csv_filename = f"{context['ds']}_stocks_data.csv"
                 with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "w") as f:
                     json.dump(data, f, indent=4, sort_keys=True)
             except json.JSONDecodeError as e:
