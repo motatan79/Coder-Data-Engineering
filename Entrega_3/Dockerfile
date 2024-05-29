@@ -1,5 +1,9 @@
-# Utiliza la imagen base oficial de Airflow
-FROM apache/airflow:2.5.1
+# Utiliza la imagen de python
+FROM python:3.9.5-slim-buster
+
+# Correr airflow  
+RUN pip install apache-airflow
+#FROM apache/airflow:2.5.1
 
 # Establece el directorio de trabajo en el contenedor
 WORKDIR /opt/airflow
