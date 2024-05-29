@@ -105,7 +105,7 @@ def loading_data(exec_date, **context):
         print(e)
         return
     try:
-        registros = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.json")
+        registros = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.csv")
         try:
             with conn.cursor() as cur:
                 execute_values(cur, 'INSERT INTO games VALUES %s', registros.values)
@@ -126,28 +126,52 @@ def check_draw_games(exec_date, **context):
     execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
     execution_date_previous = execution_date - timedelta(days=1)
     date_to = execution_date_previous.strftime('%Y-%m-%d')
-        
-    df = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.csv")
     
-    if df[df['winner']] == 'DRAW':
-        if len(df[(df['home_goal'] == 1) & (df['away_goal'] == 1)]) > 0:
-            subject = f'Hay partidos en empate para el {date_to}'
-        else:
-            subject =  f'No hay partidos en empate para el {date_to}'
-        
-        body = f"""
-            Hay {df['away_goal'].sum()} partidos en empate para el {date_to}
-        """
-        
-        message = Mail(
-                from_email=os.environ['EMAIL_FROM'],
-                to_emails=os.environ['EMAIL_TO'],
+    try:
+        df = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.csv")
+        if len(df[df['winner'] == 'DRAW']) > 0:
+            if len(df[(df['home_goal'] == 1) & (df['away_goal'] == 1)]) > 0:
+                subject = f'Hay partidos en empate para el {date_to}'
+            else:
+                subject =  f'No hay partidos en empate para el {date_to}'
+            
+            body = f"""
+            Hola Moises,
+            
+            Para el día de hoy {date_to}, hay un total de {len(df[df['winner'] == 'DRAW'])} partidos
+            con empate 1-1."""
+            
+            message = Mail(
+                from_email=os.getenv('EMAIL_FROM'),
+                to_emails=os.getenv('EMAIL_TO'),
                 subject=subject,
                 html_content=body)
-
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sg.send(message)
-        print(response.status_code)
+        try:
+            sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+        except Exception as e:
+            print(e.message)
+    except FileNotFoundError:
+        print(f'No hay registros para este día: {date_to}')  
+        subject =  f'No hay partidos para este día {date_to}'
+            
+        body = f"""
+        Hola Moises,
+        
+        Para el día de hoy {date_to}, NO HAY PARTIDOS REGISTRADOS."""
+            
+        message = Mail(
+                from_email=os.getenv('EMAIL_FROM'),
+                to_emails=os.getenv('EMAIL_TO'),
+                subject=subject,
+                html_content=body)
+        try:
+            sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+        except Exception as e:
+            print(e.message)
 
 # # Creación de tabla en Redshift
 # def crear_tabla_redshift(conn):

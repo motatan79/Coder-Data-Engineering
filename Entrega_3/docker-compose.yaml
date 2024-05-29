@@ -56,13 +56,16 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
+    EMAIL_FROM: ${EMAIL_FROM}
+    EMAIL_TO: ${EMAIL_TO}
+    SENDGRID_API_KEY: ${SENDGRID_API_KEY}
   volumes:
     # - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
     #- ./plugins:/opt/airflow/plugins
     - ./raw_data:/opt/airflow/raw_data
     - ./processed_data:/opt/airflow/processed_data
-    # - ./.env_file:/opt/airflow/.env
+    - ./.env_file:/opt/airflow/.env
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   depends_on:
     postgres:
