@@ -6,6 +6,8 @@ import os
 from datetime import timedelta,datetime
 import pandas as pd
 from dotenv import load_dotenv
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 
 dag_path = os.getcwd()
@@ -13,7 +15,7 @@ dag_path = os.getcwd()
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
-def extract_data(exec_date) -> None:
+def extract_data(exec_date, **context) -> None:
     '''Obtención de datos de la API de football-data.org'''
     print(f"Adquiriendo data para la fecha: {exec_date}")
     execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
@@ -29,22 +31,27 @@ def extract_data(exec_date) -> None:
             try:
                 data = response.json()
                 # También puede ser de esta manera
-                # csv_filename = f"{context['ds']}_stocks_data.csv"
-                with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "w") as f:
+                jsonfilename = f"{context['ds']}.json"
+                print(jsonfilename)
+                print(dag_path + '/raw_data/'+ "data_"+ jsonfilename)
+                #with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "w") as f:
+                with open(dag_path + '/raw_data/'+ "data_"+ jsonfilename, "w") as f:
                     json.dump(data, f, indent=4, sort_keys=True)
             except json.JSONDecodeError as e:
                 print(f'JSONDecodeError: {e}')
     except Exception as e:
         print(f'Request failed: {e}')
 
-def transform_data(exec_date): 
+def transform_data(exec_date, **context) -> None: 
     '''Generación de DataFrame con datos transformados'''      
     print(f"Transformando datos para la fecha: {exec_date}")
     execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
     execution_date_previous = execution_date - timedelta(days=1)
     date_to = execution_date_previous.strftime('%Y-%m-%d')
     print(date_to)
-    with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "r") as f:
+    jsonfilename = f"{context['ds']}.json"
+    #with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "r") as f:
+    with open(dag_path+'/raw_data/'+ 'data_' + jsonfilename, "r") as f:
         matches=json.load(f)
     games = []
     for i in range(len(matches['matches'])): 
@@ -70,11 +77,11 @@ def transform_data(exec_date):
         df = pd.DataFrame(games)
         df['fecha_ingesta'] = date_to
         print(df)  
-        df.to_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv", index=False, mode='w')
-    
+        #df.to_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv", index=False, mode='w')
+        df.to_csv(dag_path+'/processed_data/'+"data_"+ f"{context['ds']}.csv", index=False, mode='w')   
      
         
-def loading_data(exec_date):
+def loading_data(exec_date, **context):
     '''Conexión a Redshift y Carga de datos en Redshift'''
     
     print(f"Insertando datos para la fecha: {exec_date}")
@@ -98,7 +105,7 @@ def loading_data(exec_date):
         print(e)
         return
     try:
-        registros = pd.read_csv(dag_path + '/processed_data/' + "data_" + (date_to[:4]) + '-' + (date_to[5:7]) + '-' + (date_to[8:]) + ".csv")
+        registros = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.json")
         try:
             with conn.cursor() as cur:
                 execute_values(cur, 'INSERT INTO games VALUES %s', registros.values)
@@ -113,6 +120,34 @@ def loading_data(exec_date):
             cur.close()
         if 'conn' in locals():
             conn.close()
+
+def check_draw_games(exec_date, **context):
+    '''Contar cuantos partidos han terminado en empate 1 - 1'''
+    execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
+    execution_date_previous = execution_date - timedelta(days=1)
+    date_to = execution_date_previous.strftime('%Y-%m-%d')
+        
+    df = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.csv")
+    
+    if df[df['winner']] == 'DRAW':
+        if len(df[(df['home_goal'] == 1) & (df['away_goal'] == 1)]) > 0:
+            subject = f'Hay partidos en empate para el {date_to}'
+        else:
+            subject =  f'No hay partidos en empate para el {date_to}'
+        
+        body = f"""
+            Hay {df['away_goal'].sum()} partidos en empate para el {date_to}
+        """
+        
+        message = Mail(
+                from_email=os.environ['EMAIL_FROM'],
+                to_emails=os.environ['EMAIL_TO'],
+                subject=subject,
+                html_content=body)
+
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
 
 # # Creación de tabla en Redshift
 # def crear_tabla_redshift(conn):

@@ -18,8 +18,11 @@ dag_path = os.getcwd()
 default_args = {
     'owner': 'Pirela, Moises',
     'start_date': datetime(2024,5,15),
+    'email': ['m.pirela@gmail.com'],
+    'email_on_retry': False,
+    'email_on_failure': True,
     'retries':5,
-    'retry_delay': timedelta(minutes=5)
+    'retry_delay': timedelta(minutes=5),
 }
 
 premier_dag = DAG(
@@ -38,6 +41,7 @@ task_1 = PythonOperator(
     python_callable=extract_data,
     op_args=["{{ ds }} {{ execution_date.hour }}"],
     dag=premier_dag,
+    provide_context=True,
 )
 
 #2. Data Transformation
@@ -46,14 +50,25 @@ task_2 = PythonOperator(
     python_callable=transform_data,
     op_args=["{{ ds }} {{ execution_date.hour }}"],
     dag=premier_dag,
+    provide_context=True,
 )
 
-# # 3. Data Loading 
+# 3. Data Loading 
 task_3 = PythonOperator(
     task_id='load_data',
     python_callable=loading_data,
     op_args=["{{ ds }} {{ execution_date.hour }}"],
     dag=premier_dag,
+    provide_context=True,
 )
 
-task_1 >> task_2 >> task_3
+# 4. Send Email Notification
+task_4 = PythonOperator(
+    task_id='enviar_email_notificacion',
+    python_callable=check_draw_games,
+    op_args=["{{ ds }} {{ execution_date.hour }}"],
+    dag=premier_dag,
+    provide_context=True,
+)
+
+task_1 >> task_2 >> task_3 >> task_4
