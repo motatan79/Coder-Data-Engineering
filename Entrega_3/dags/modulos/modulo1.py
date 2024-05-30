@@ -51,34 +51,37 @@ def transform_data(exec_date, **context) -> None:
     print(date_to)
     jsonfilename = f"{context['ds']}.json"
     #with open(dag_path+'/raw_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+ ".json", "r") as f:
-    with open(dag_path+'/raw_data/'+ 'data_' + jsonfilename, "r") as f:
-        matches=json.load(f)
-    games = []
-    for i in range(len(matches['matches'])): 
-        country = matches['matches'][i]['area']['name']
-        season_start = matches['matches'][i]['season']['startDate']
-        season_end = matches['matches'][i]['season']['endDate']
-        home_team_id = matches['matches'][i]['homeTeam']['id']
-        home_team = matches['matches'][i]['homeTeam']['name']
-        away_team_id = matches['matches'][i]['awayTeam']['id']
-        away_team = matches['matches'][i]['awayTeam']['name']
-        competition = matches['matches'][i]['competition']['name']
-        match_day = matches['matches'][i]['utcDate']
-        away_goal = matches['matches'][i]['score']['fullTime']['away']
-        home_goal = matches['matches'][i]['score']['fullTime']['home']
-        winner = matches['matches'][i]['score']['winner']
-        status = matches['matches'][i]['status']    
-        games.append({'country': country, 'competition':competition, 'season_start':season_start, 'season_end':season_end ,
-                      'match_day':match_day, 'home_team_id':home_team_id, 'home_team':home_team, 'away_team_id':away_team_id,
-                        'away_team':away_team, 'away_goal':away_goal, 'home_goal':home_goal, 'winner':winner, 'status':status})
-    if len(games) == 0:
-            return f'No hay partidos en este día: {date_to}'
-    else: 
-        df = pd.DataFrame(games)
-        df['fecha_ingesta'] = date_to
-        print(df)  
-        #df.to_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv", index=False, mode='w')
-        df.to_csv(dag_path+'/processed_data/'+"data_"+ f"{context['ds']}.csv", index=False, mode='w')   
+    try:
+        with open(dag_path+'/raw_data/'+ 'data_' + jsonfilename, "r") as f:
+            matches=json.load(f)
+        games = []
+        for i in range(len(matches['matches'])): 
+            country = matches['matches'][i]['area']['name']
+            season_start = matches['matches'][i]['season']['startDate']
+            season_end = matches['matches'][i]['season']['endDate']
+            home_team_id = matches['matches'][i]['homeTeam']['id']
+            home_team = matches['matches'][i]['homeTeam']['name']
+            away_team_id = matches['matches'][i]['awayTeam']['id']
+            away_team = matches['matches'][i]['awayTeam']['name']
+            competition = matches['matches'][i]['competition']['name']
+            match_day = matches['matches'][i]['utcDate']
+            away_goal = matches['matches'][i]['score']['fullTime']['away']
+            home_goal = matches['matches'][i]['score']['fullTime']['home']
+            winner = matches['matches'][i]['score']['winner']
+            status = matches['matches'][i]['status']    
+            games.append({'country': country, 'competition':competition, 'season_start':season_start, 'season_end':season_end ,
+                        'match_day':match_day, 'home_team_id':home_team_id, 'home_team':home_team, 'away_team_id':away_team_id,
+                            'away_team':away_team, 'away_goal':away_goal, 'home_goal':home_goal, 'winner':winner, 'status':status})
+        if len(games) == 0:
+                return f'No hay partidos en este día: {date_to}'
+        else: 
+            df = pd.DataFrame(games)
+            df['fecha_ingesta'] = date_to
+            print(df)  
+            #df.to_csv(dag_path+'/processed_data/'+"data_"+(date_to[:4])+'-'+(date_to[5:7])+'-'+(date_to[8:])+".csv", index=False, mode='w')
+            df.to_csv(dag_path+'/processed_data/'+"data_"+ f"{context['ds']}.csv", index=False, mode='w')   
+    except Exception as e:
+        print(e)  
      
         
 def loading_data(exec_date, **context):
@@ -132,19 +135,19 @@ def check_draw_games(exec_date, **context):
         if len(df[df['winner'] == 'DRAW']) > 0:
             subject = f'Hay partidos en empate para el {date_to}'
         else:
-            subject =  f'No hay partidos con empate {date_to}'
+            subject =  f'No hay partidos terminados en empate para el {date_to}'
             
-            body = f"""
-            Hola Moises,
-            
-            Para el día de hoy {date_to}, hay un total de {len(df[df['winner'] == 'DRAW'])} partidos
-            que terminaron con empate."""
-            
-            message = Mail(
-                from_email=os.getenv('EMAIL_FROM'),
-                to_emails=os.getenv('EMAIL_TO'),
-                subject=subject,
-                html_content=body)
+        body = f"""
+        Hola Moises,
+        
+        Para el día de hoy {date_to}, hay un total de {len(df[df['winner'] == 'DRAW'])} partido(s)
+        terminado(s) en empate."""
+        
+        message = Mail(
+            from_email=os.getenv('EMAIL_FROM'),
+            to_emails=os.getenv('EMAIL_TO'),
+            subject=subject,
+            html_content=body)
         try:
             sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
             response = sg.send(message)
@@ -154,7 +157,6 @@ def check_draw_games(exec_date, **context):
     except FileNotFoundError:
         print(f'No hay registros para este día: {date_to}')  
         subject =  f'No hay partidos para este día {date_to}'
-            
         body = f"""
         Hola Moises,
         
