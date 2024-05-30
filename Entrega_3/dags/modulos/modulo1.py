@@ -122,7 +122,7 @@ def loading_data(exec_date, **context):
             conn.close()
 
 def check_draw_games(exec_date, **context):
-    '''Contar cuantos partidos han terminado en empate 1 - 1'''
+    '''Contar cuantos partidos han terminado en empate'''
     execution_date = datetime.strptime(exec_date, '%Y-%m-%d %H')
     execution_date_previous = execution_date - timedelta(days=1)
     date_to = execution_date_previous.strftime('%Y-%m-%d')
@@ -130,16 +130,15 @@ def check_draw_games(exec_date, **context):
     try:
         df = pd.read_csv(dag_path + '/processed_data/' + "data_" + f"{context['ds']}.csv")
         if len(df[df['winner'] == 'DRAW']) > 0:
-            if len(df[(df['home_goal'] == 1) & (df['away_goal'] == 1)]) > 0:
-                subject = f'Hay partidos en empate para el {date_to}'
-            else:
-                subject =  f'No hay partidos en empate para el {date_to}'
+            subject = f'Hay partidos en empate para el {date_to}'
+        else:
+            subject =  f'No hay partidos con empate {date_to}'
             
             body = f"""
             Hola Moises,
             
             Para el día de hoy {date_to}, hay un total de {len(df[df['winner'] == 'DRAW'])} partidos
-            con empate 1-1."""
+            que terminaron con empate."""
             
             message = Mail(
                 from_email=os.getenv('EMAIL_FROM'),
