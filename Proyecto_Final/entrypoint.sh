@@ -1,17 +1,29 @@
 #!/bin/bash
+# entrypoint.sh
 
-# Inicializar la base de datos de Airflow
-airflow db init
+export AIRFLOW_HOME=/opt/airflow
 
-# Crear un usuario administrador si no existe
-airflow users create \
-    --username admin \
-    --password admin \
-    --firstname Nombre \
-    --lastname Apellido \
-    --role Admin \
-    --email admin@example.com
-
-# Iniciar el scheduler y el webserver de Airflow
-airflow scheduler &
-exec airflow webserver
+case "$1" in
+  webserver)
+    airflow db upgrade
+    if [ "$AIRFLOW__CORE__EXECUTOR" = "LocalExecutor" ]; then
+      airflow users create \
+        --username admin \
+        --password admin \
+        --firstname Admin \
+        --lastname User \
+        --role Admin \
+        --email admin@example.com
+    fi
+    exec airflow webserver
+    ;;
+  scheduler)
+    exec airflow scheduler
+    ;;
+  version)
+    exec airflow version
+    ;;
+  *)
+    exec "$@"
+    ;;
+esac

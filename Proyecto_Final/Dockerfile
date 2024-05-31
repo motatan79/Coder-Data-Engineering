@@ -1,9 +1,13 @@
 # # Utiliza la imagen de python
-# FROM python:3.9.5-slim-buster
+FROM python:3.9.5-slim-buster
+
+# Crear el usuario airflow con UID y GID
+RUN groupadd -g 50000 airflow && \
+    useradd -u 50000 -g airflow -m -s /bin/bash airflow
 
 # # Correr airflow  
-# RUN pip install apache-airflow
-FROM apache/airflow:2.5.1
+RUN pip install apache-airflow
+#FROM apache/airflow:2.5.1
 
 # Establece el directorio de trabajo en el contenedor
 WORKDIR /opt/airflow
