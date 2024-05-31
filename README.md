@@ -1,4 +1,4 @@
-# Entrega # 3. Carga de datos de API en Amazon Redshift usando Apache Airflow.
+# Entrega Final. Carga de datos de API en Amazon Redshift usando Apache Airflow.
 Comision: 60340
 
 Creador: Pirela, Moises.
@@ -8,7 +8,7 @@ Creador: Pirela, Moises.
 1.0
 
 # DESCRIPCION DEL PROYECTO
-El proyecto consiste en obtener datos de la API gratuita  https://www.football-data.org/ de fútbol y cargar los datos en la base de datos de Amazon Redshift, usando un DAG con Airflow.
+El proyecto consiste en obtener datos de la API gratuita  https://www.football-data.org/ de fútbol y cargar los datos en la base de datos de Amazon Redshift, usando un DAG con Airflow. Adicionalmente enviar un correo cuando existan juegos empatados.
 
 # Para ejecutar el proyecto seguir los siguientes pasos:
 
