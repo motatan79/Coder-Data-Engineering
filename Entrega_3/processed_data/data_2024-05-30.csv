@@ -1,0 +1,5 @@
+country,competition,season_start,season_end,match_day,home_team_id,home_team,away_team_id,away_team,away_goal,home_goal,winner,status,fecha_ingesta
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-29T00:00:00Z,4261,Club Bolívar,4460,CD Palestino,1,3,HOME_TEAM,FINISHED,2024-05-29
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-29T00:00:00Z,1783,CR Flamengo,4444,Millonarios FC,0,3,HOME_TEAM,FINISHED,2024-05-29
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-29T22:00:00Z,2051,Estudiantes de La Plata,4457,CD Huachipato,4,3,AWAY_TEAM,FINISHED,2024-05-29
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-29T22:00:00Z,1767,Grêmio FBPA,4267,Club The Strongest,0,4,HOME_TEAM,FINISHED,2024-05-29

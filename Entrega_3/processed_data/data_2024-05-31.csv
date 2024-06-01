@@ -1,0 +1,9 @@
+country,competition,season_start,season_end,match_day,home_team_id,home_team,away_team_id,away_team,away_goal,home_goal,winner,status,fecha_ingesta
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-30T00:30:00Z,4520,Barcelona SC,7913,CD Cobresal,1,2,HOME_TEAM,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-30T00:30:00Z,1765,Fluminense FC,5680,Club Alianza Lima,2,3,HOME_TEAM,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-30T00:30:00Z,1776,São Paulo FC,2073,CA Talleres,0,2,HOME_TEAM,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-30T00:30:00Z,9373,Club Cerro Porteño,4410,CSD Colo-Colo,1,1,DRAW,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-30T22:00:00Z,1769,SE Palmeiras,2071,CA San Lorenzo de Almagro,0,0,DRAW,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-30T22:00:00Z,6989,CAR Independiente del Valle,7118,Liverpool FC,1,2,HOME_TEAM,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-31T00:00:00Z,9379,Club Libertad Asuncion,7055,Club Nacional de Football,1,2,HOME_TEAM,FINISHED,2024-05-30
+South America,Copa Libertadores,2024-02-07,2024-05-31,2024-05-31T00:00:00Z,6667,CA River Plate,5171,Deportivo Táchira FC,0,2,HOME_TEAM,FINISHED,2024-05-30

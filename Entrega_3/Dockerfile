@@ -1,47 +1,45 @@
-# # Utiliza la imagen de python
 FROM python:3.9.5-slim-buster
 
 # Crear el usuario airflow con UID y GID
 RUN groupadd -g 50000 airflow && \
     useradd -u 50000 -g airflow -m -s /bin/bash airflow
 
-# # Correr airflow  
+# Instalar Apache Airflow
 RUN pip install apache-airflow
-#FROM apache/airflow:2.5.1
 
-# Establece el directorio de trabajo en el contenedor
+# Establecer el directorio de trabajo en el contenedor
 WORKDIR /opt/airflow
 
-# Copia los archivos de requisitos si los tienes
+# Copiar los archivos de requisitos
 COPY requirements.txt .
 
-# Instala las dependencias necesarias incluyendo python-dotenv
+# Instalar las dependencias necesarias incluyendo python-dotenv
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia los DAGs al directorio de Airflow
+# Copiar los DAGs al directorio de Airflow
 COPY dags /opt/airflow/dags
 
-# Copia los plugins si tienes
+# Copiar los plugins
 COPY plugins /opt/airflow/plugins
 
-# Copia el archivo .env al directorio de trabajo
+# Copiar el archivo .env al directorio de trabajo
 COPY .env /opt/airflow/
 
-# Copia los scripts de entrada, configuraciones o archivos necesarios
+# Copiar el archivo entrypoint.sh
 COPY entrypoint.sh /entrypoint.sh
 
-# Cambia los permisos del script de entrada con usuario root
+# Cambiar los permisos del script de entrada con usuario root
 USER root
-RUN mkdir -p /opt/airflow/raw_data && chmod -R 777 /opt/airflow/raw_data
-RUN mkdir -p /opt/airflow/processed_data && chmod -R 777 /opt/airflow/processed_data
 RUN chmod +x /entrypoint.sh
 USER airflow
 
-# Configura el punto de entrada
+# Configurar el punto de entrada
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Exponer los puertos necesarios
 EXPOSE 8080 8793
 
-# Inicia el scheduler y el webserver
+# Iniciar el scheduler y el webserver
 CMD ["webserver"]
+
+

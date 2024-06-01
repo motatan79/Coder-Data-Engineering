@@ -1,0 +1,495 @@
+{
+    "filters": {
+        "dateFrom": "2024-05-30",
+        "dateTo": "2024-05-31",
+        "permission": "TIER_ONE"
+    },
+    "matches": [
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/7913.png",
+                "id": 7913,
+                "name": "CD Cobresal",
+                "shortName": "Cobresal",
+                "tla": "CBS"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_B",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/4520.png",
+                "id": 4520,
+                "name": "Barcelona SC",
+                "shortName": "Barcelona SC",
+                "tla": "BAR"
+            },
+            "id": 494817,
+            "lastUpdated": "2024-05-30T04:22:11Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 1,
+                    "home": 2
+                },
+                "halfTime": {
+                    "away": 0,
+                    "home": 2
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-30T00:30:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/5680.png",
+                "id": 5680,
+                "name": "Club Alianza Lima",
+                "shortName": "Alianza Lima",
+                "tla": "ALI"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_A",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/1765.svg",
+                "id": 1765,
+                "name": "Fluminense FC",
+                "shortName": "Fluminense",
+                "tla": "FLU"
+            },
+            "id": 494805,
+            "lastUpdated": "2024-05-30T04:23:40Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 2,
+                    "home": 3
+                },
+                "halfTime": {
+                    "away": 1,
+                    "home": 0
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-30T00:30:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/2073.png",
+                "id": 2073,
+                "name": "CA Talleres",
+                "shortName": "Talleres",
+                "tla": "TAL"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_B",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/1776.png",
+                "id": 1776,
+                "name": "S\u00e3o Paulo FC",
+                "shortName": "S\u00e3o Paulo",
+                "tla": "PAU"
+            },
+            "id": 494818,
+            "lastUpdated": "2024-05-30T04:33:50Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 0,
+                    "home": 2
+                },
+                "halfTime": {
+                    "away": 0,
+                    "home": 1
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-30T00:30:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/4410.png",
+                "id": 4410,
+                "name": "CSD Colo-Colo",
+                "shortName": "Colo-Colo",
+                "tla": "COL"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_A",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/9373.png",
+                "id": 9373,
+                "name": "Club Cerro Porte\u00f1o",
+                "shortName": "Cerro Porte\u00f1o",
+                "tla": "CCP"
+            },
+            "id": 494806,
+            "lastUpdated": "2024-05-30T04:29:05Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 1,
+                    "home": 1
+                },
+                "halfTime": {
+                    "away": 1,
+                    "home": 1
+                },
+                "winner": "DRAW"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-30T00:30:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/2071.png",
+                "id": 2071,
+                "name": "CA San Lorenzo de Almagro",
+                "shortName": "San Lorenzo",
+                "tla": "SLO"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_F",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/1769.png",
+                "id": 1769,
+                "name": "SE Palmeiras",
+                "shortName": "Palmeiras",
+                "tla": "PAL"
+            },
+            "id": 494866,
+            "lastUpdated": "2024-05-31T01:53:25Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 0,
+                    "home": 0
+                },
+                "halfTime": {
+                    "away": 0,
+                    "home": 0
+                },
+                "winner": "DRAW"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-30T22:00:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/7118.png",
+                "id": 7118,
+                "name": "Liverpool FC",
+                "shortName": "Liverpool",
+                "tla": "LIV"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_F",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/6989.png",
+                "id": 6989,
+                "name": "CAR Independiente del Valle",
+                "shortName": "Independiente",
+                "tla": "IDL"
+            },
+            "id": 494865,
+            "lastUpdated": "2024-06-01T00:16:30Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [
+                {
+                    "id": 22030,
+                    "name": "Carlos Ortega",
+                    "nationality": "Colombia",
+                    "type": "REFEREE"
+                }
+            ],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 1,
+                    "home": 2
+                },
+                "halfTime": {
+                    "away": 1,
+                    "home": 1
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-30T22:00:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/7055.png",
+                "id": 7055,
+                "name": "Club Nacional de Football",
+                "shortName": "Club Nacional",
+                "tla": "NAC"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_H",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/9379.png",
+                "id": 9379,
+                "name": "Club Libertad Asuncion",
+                "shortName": "Libertad",
+                "tla": "CLA"
+            },
+            "id": 494890,
+            "lastUpdated": "2024-05-31T03:52:30Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 1,
+                    "home": 2
+                },
+                "halfTime": {
+                    "away": 1,
+                    "home": 2
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-31T00:00:00Z"
+        },
+        {
+            "area": {
+                "code": "SAM",
+                "flag": "https://crests.football-data.org/CLI.svg",
+                "id": 2220,
+                "name": "South America"
+            },
+            "awayTeam": {
+                "crest": "https://crests.football-data.org/5171.png",
+                "id": 5171,
+                "name": "Deportivo T\u00e1chira FC",
+                "shortName": "T\u00e1chira",
+                "tla": "T\u00c1C"
+            },
+            "competition": {
+                "code": "CLI",
+                "emblem": "https://crests.football-data.org/CLI.svg",
+                "id": 2152,
+                "name": "Copa Libertadores",
+                "type": "CUP"
+            },
+            "group": "GROUP_H",
+            "homeTeam": {
+                "crest": "https://crests.football-data.org/6667.png",
+                "id": 6667,
+                "name": "CA River Plate",
+                "shortName": "River Plate",
+                "tla": "RIV"
+            },
+            "id": 494889,
+            "lastUpdated": "2024-05-31T03:52:30Z",
+            "matchday": 6,
+            "odds": {
+                "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+            },
+            "referees": [],
+            "score": {
+                "duration": "REGULAR",
+                "fullTime": {
+                    "away": 0,
+                    "home": 2
+                },
+                "halfTime": {
+                    "away": 0,
+                    "home": 0
+                },
+                "winner": "HOME_TEAM"
+            },
+            "season": {
+                "currentMatchday": 6,
+                "endDate": "2024-05-31",
+                "id": 1644,
+                "startDate": "2024-02-07",
+                "winner": null
+            },
+            "stage": "GROUP_STAGE",
+            "status": "FINISHED",
+            "utcDate": "2024-05-31T00:00:00Z"
+        }
+    ],
+    "resultSet": {
+        "competitions": "CLI",
+        "count": 8,
+        "first": "2024-05-30",
+        "last": "2024-05-31",
+        "played": 8
+    }
+}

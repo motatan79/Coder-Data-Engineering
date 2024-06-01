@@ -38,34 +38,29 @@
 #
 # Feel free to modify this file to suit your needs.
 ---
-version: '1.0'
+version: '3.8'
 x-airflow-common:
   &airflow-common
-  # In order to add custom dependencies or upgrade provider packages you can use your extended image.
-  # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
-  # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
-  # image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.3.3}
   build: .
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    # For backward compatibility, with Airflow <2.3
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
     AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
     EMAIL_FROM: ${EMAIL_FROM}
     EMAIL_TO: ${EMAIL_TO}
     SENDGRID_API_KEY: ${SENDGRID_API_KEY}
   volumes:
-    # - ./dags:/opt/airflow/dags
+    - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
-    #- ./plugins:/opt/airflow/plugins
+    - ./plugins:/opt/airflow/plugins
     - ./raw_data:/opt/airflow/raw_data
     - ./processed_data:/opt/airflow/processed_data
-    - ./.env_file:/opt/airflow/.env
+    - ./.env:/opt/airflow/.env
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   depends_on:
     postgres:
@@ -83,7 +78,7 @@ services:
     ports:
       - 5432:5432
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "airflow"]
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
       interval: 5s
       retries: 5
     restart: always
@@ -107,8 +102,7 @@ services:
 
   airflow-init:
     <<: *airflow-common
-    # yamllint disable rule:line-length
-    command: version
+    command: airflow db upgrade
     environment:
       <<: *airflow-common-env
       _AIRFLOW_DB_UPGRADE: 'true'
